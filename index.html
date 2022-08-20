@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <link rel="stylesheet" href="styles.css">
+  <script async src="./index.js">
+
+  </script>
+  <title>Frontend Mentor | Calculator app</title>
+
+</head>
+
+<body>
+  <div class="Container">
+    <main class="Calculator">
+      <header class="Calculator--title">calc</header>
+      <section class="Calculator__display">
+        0
+      </section>
+      <section class="Calculator__keys">
+        <button>7</button>
+        <button>8</button>
+        <button>9</button>
+        <button class="key--operator" data-action="add">+</button>
+        <button>4</button>
+        <button>5</button>
+        <button>6</button>
+        
+        <button class="key--operator" data-action="divide">÷</button>
+        <button>1</button>
+        <button>2</button>
+        <button>3</button>
+        <button class="key--operator" data-action="subtract">-</button>
+        <button data-action="decimal">.</button>
+        <button>0</button>
+        <button class="key--operator" data-action="divide">/</button>
+        <button class="key--operator" data-action="multiply">&times;</button>
+        <button class="Calculator__keys--reset" data-action="reset">RESET</button>
+        <button class="Calculator__keys--equal key--equal" data-action="calculate">=</button>
+      </section>
+    </main>
+  </div>
+</body>
+
+</html>
