@@ -2,14 +2,14 @@ const KEYS = document.querySelectorAll('[data-action]')
 const NUMBERS = document.querySelectorAll('button:not([data-action])')
 const DISPLAY = document.querySelector('.Calculator__display')
 
-
-
 let operation = '0'
+let previousAction = ''
+
 KEYS.forEach((_currentElement, _currentIndex) => {
-    _currentElement.addEventListener('click', (e) => {
+    _currentElement.addEventListener('click', () => {
 
         const ACTION = _currentElement.dataset.action
-        let ACTION_OPERATOR = _currentElement.textContent
+        let action_operator = _currentElement.textContent
 
         if (ACTION === 'calculate') {
             const RESULT = eval(operation)
@@ -20,15 +20,19 @@ KEYS.forEach((_currentElement, _currentIndex) => {
         } else if (ACTION === 'reset') {
             operation = '0'
             DISPLAY.textContent = operation
+            
         } else {
-            console.log(ACTION_OPERATOR)
-            if (ACTION_OPERATOR === '×') {
-                ACTION_OPERATOR = '*'
+            if(previousAction === 'addOperator') return
+
+            previousAction = 'addOperator'
+
+            if (action_operator === '×') {
+                action_operator = '*'
             }
-            if (ACTION_OPERATOR === '÷') {
-                ACTION_OPERATOR = '%'
+            if (action_operator === '÷') {
+                action_operator = '%'
             }
-            const newOperation = operation + ACTION_OPERATOR
+            const newOperation = operation + action_operator
             operation = newOperation
 
             DISPLAY.textContent = operation
@@ -39,6 +43,7 @@ KEYS.forEach((_currentElement, _currentIndex) => {
 
 NUMBERS.forEach((_currentElement, _currentIndex) => {
     _currentElement.addEventListener('click', (e) => {
+        previousAction = 'addNumber'
         const VALUE = e.target.textContent
         const newOperation = operation === '0' ? VALUE : operation + VALUE
         operation = newOperation
