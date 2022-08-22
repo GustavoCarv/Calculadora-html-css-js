@@ -12,6 +12,8 @@ Ideia de layout retirada do Frontend Mentor no seguinte link: [Calculator app](h
   - CSS
   - JavaScript Vanilla
 
+### Acesso pelo link: 
+[Calculadora no GithubPages](https://gustavocarv.github.io/)
 
 ### Por implementar
 - Outros temas e cores, como sugerido no layout
