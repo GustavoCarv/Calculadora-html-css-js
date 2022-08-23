@@ -145,16 +145,18 @@ select {
     color: var(--text-dark-blue);
     font-size: 1.5rem;
     font-weight: 700;
+    border-radius: 0.5rem;
 }
 
 button.Calculator__keys--reset, 
 button.Calculator__keys--equal { 
-    cursor: pointer;
     all: unset;
+    cursor: pointer;
     font-size: 2rem;
     display: grid;
     place-content: center;
     transition: all 0.3s ease-in-out;
+    border-radius: 0.5rem;
 }
 
 button.Calculator__keys--reset {

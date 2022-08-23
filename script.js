@@ -5,37 +5,57 @@ const DISPLAY = document.querySelector('.Calculator__display')
 let operation = '0'
 let previousAction = ''
 
+const calculateFinalValue = () => {
+    const RESULT = eval(operation)
+    operation = RESULT
+    DISPLAY.textContent = RESULT
+}
+
+const addOperator = (operator) => {
+    if (previousAction === 'addOperator') return
+
+    previousAction = 'addOperator'
+
+    if (operator === '×') {
+        operator = '*'
+    }
+    if ((operator === '÷') || (operator === '/')) {
+        operator = '/'
+    }
+    const newOperation = operation + operator
+    operation = newOperation
+
+    DISPLAY.textContent = operation
+}
+
+const addNumber = (number) => {
+    previousAction = 'addNumber'
+    const newOperation = operation === '0' ? number : operation + number
+    operation = newOperation
+
+    DISPLAY.textContent = operation
+
+}
+
+const reset = () => {
+    operation = '0'
+    DISPLAY.textContent = operation
+}
+
 KEYS.forEach((_currentElement, _currentIndex) => {
     _currentElement.addEventListener('click', () => {
 
-        const ACTION = _currentElement.dataset.action
+        const action = _currentElement.dataset.action
         let action_operator = _currentElement.textContent
 
-        if (ACTION === 'calculate') {
-            const RESULT = eval(operation)
-            operation = RESULT
-            DISPLAY.textContent = RESULT
+        if (action === 'calculate') {
+            calculateFinalValue()
 
+        } else if (action === 'reset') {
+            reset()
 
-        } else if (ACTION === 'reset') {
-            operation = '0'
-            DISPLAY.textContent = operation
-            
         } else {
-            if(previousAction === 'addOperator') return
-
-            previousAction = 'addOperator'
-
-            if (action_operator === '×') {
-                action_operator = '*'
-            }
-            if (action_operator === '÷') {
-                action_operator = '%'
-            }
-            const newOperation = operation + action_operator
-            operation = newOperation
-
-            DISPLAY.textContent = operation
+            addOperator(action_operator)
         }
     })
 
@@ -43,13 +63,45 @@ KEYS.forEach((_currentElement, _currentIndex) => {
 
 NUMBERS.forEach((_currentElement, _currentIndex) => {
     _currentElement.addEventListener('click', (e) => {
-        previousAction = 'addNumber'
-        const VALUE = e.target.textContent
-        const newOperation = operation === '0' ? VALUE : operation + VALUE
-        operation = newOperation
+        const number = e.target.textContent
 
-        DISPLAY.textContent = operation
-
-
+        addNumber(number)
     })
 })
+
+
+window.addEventListener("keydown", (event) => {
+    if (event.defaultPrevented) {
+        return;
+    }
+
+        console.log(event.key)
+
+    const numberRegex = /[0-9]/
+    const isNumber = numberRegex.test(event.key)
+
+    if (isNumber) {
+        const number = event.key
+        addNumber(number)
+        return
+    }
+
+    const actionRegex = /[\(\)\+\-\*\/\.\=]|Enter|Delete/
+    const isAction = actionRegex.test(event.key)
+
+    if (isAction || event.key === 'Enter') {
+        console.log('caiu aqui >>')
+
+        const action_operator = event.key
+
+        if ((action_operator === '=') || (action_operator === 'Enter')) {
+            calculateFinalValue()
+            return
+        }
+        addOperator(action_operator)
+
+
+    }
+
+    event.preventDefault();
+});
